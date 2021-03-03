@@ -41,8 +41,25 @@ class Header extends Component {
                                     )
                                 }
                                 return (
-                                    <button className="btn btn-sm btn-light mr-2 mb-2">{`#${newsCategory[item]}`}</button>
+                                    <button className="btn btn-sm btn-light mr-2 mb-2">
+                                        {`#${newsCategory[item]}`}
+                                    </button>
                                 )
+                                // category === newsCategory[item] ?
+                                // <div>
+                                //     <button className="btn btn-sm btn-warning mr-2 mb-2">
+                                //     {`#${newsCategory[item]}`}
+                                //     </button>
+                                // </div>
+                                // :
+                                
+                                // <div>
+                                //     <button className="btn btn-sm btn-light mr-2 mb-2">
+                                //         {`#${newsCategory[item]}`}
+                                //     </button>
+                                // </div>
+                                
+
                             })
                     }
                 </div>
