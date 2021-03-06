@@ -6,6 +6,7 @@ import Newslist from './components/Newslist';
 import Pagination from './components/Pagination';
 import { newsCategory } from './news';
 import axios from 'axios';
+import Lifecycle from './components/Lifecycle';
 
 const fakeNews = [
   {
@@ -29,6 +30,8 @@ const fakeNews = [
     },
   }
 ]
+
+//8600e22e97a24deebde523aff55e902a
 
 const URL = 'https://jsonplaceholder.typicode.com/users';
 axios.get(URL).then((res) => {
@@ -55,6 +58,7 @@ class App extends React.Component {
         <Newslist news={fakeNews} />
         <Pagination />
         <Loading />
+        <Lifecycle count={1000} />
       </div>
     );
   }
