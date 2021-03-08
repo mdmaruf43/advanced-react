@@ -16,7 +16,7 @@ if(process.env.NODE_ENV !== 'development') {
   ReactDOM.render(<App />,document.getElementById('root'));
 }
 
-console.log(process.env.REACT_APP_TEST)
+// console.log(process.env.REACT_APP_NEWS_URL, process.env.REACT_APP_NEWS_API_KEY)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
