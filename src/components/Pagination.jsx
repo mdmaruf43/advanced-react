@@ -5,15 +5,40 @@ class Pagination extends Component {
         isEditable: false,
     }
     render() {
+        const {
+            currentPage,
+            totalPage,
+            next, 
+            prev,
+            isPrevious,
+            isNext,
+            handlePageChange,
+            goToPage,
+        } = this.props;
         return (
             <div className='d-flex align-items-center my-5'>
-                <button className='btn btn-warning'>Previous</button>
+                <button 
+                    className='btn btn-warning' 
+                    onClick={() => {
+                        prev();
+                    }} 
+                    disabled={!isPrevious}
+                >
+                        Previous
+                </button>
                 <div className="flex-grow-1 text-center">
                     {
                         this.state.isEditable ? (
                             <input 
                                 type="number" 
-                                value='1'
+                                value={currentPage}
+                                onChange={e => handlePageChange(e.target.value)}
+                                onKeyPress={(e) => {
+                                    if(e.key === 'Enter') {
+                                        this.setState({isEditable: false})
+                                        goToPage();
+                                    }
+                                }}
                             />
                         ) : (
                             <p
@@ -26,14 +51,22 @@ class Pagination extends Component {
                                     this.setState({isEditable: !this.state.isEditable})
                                 }}
                             >
-                                {1} of {100}
+                                {currentPage} of {totalPage}
                                 <br/>
                                 <small>Double Tap to Edit</small>
                             </p>
                         )
                     }
                 </div>
-                <button className='btn btn-warning ml-auto'>Next</button>
+                <button 
+                    className='btn btn-warning ml-auto'
+                    disabled={!isNext}
+                    onClick={() => {
+                        next();
+                    }}
+                >
+                    Next
+                </button>
             </div>
         )
     }

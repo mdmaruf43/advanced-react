@@ -70,20 +70,109 @@ class App extends React.Component {
       })
   }
 
+  next = () => {
+    if(this.state.data.isNext){
+      this.setState({isLoading: true})
+    }
+    news.next()
+      .then(data => {
+        this.setState({data, isLoading: false})
+      })
+      .catch(e => {
+        console.log(e);
+        alert('Something Went Wrong');
+        this.setState({isLoading: false})
+      })
+  }
+
+  prev = () => {
+    if(this.state.data.isPrevious){
+      this.setState({isLoading: true})
+    }
+    news.prev()
+      .then(data => {
+        this.setState({data, isLoading: false})
+      })
+      .catch(e => {
+        console.log(e);
+        alert('Something Went Wrong');
+        this.setState({isLoading: false})
+      })
+  }
+
+  handlePageChange = value => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        currentPage: Number.parseInt(value),
+      }
+    })
+  }
+
+  goToPage = () => {
+    this.setState({isLoading: true})
+    news.setCurrentPage(this.state.data.currentPage)
+      .then(data => {
+        this.setState({data, isLoading: false})
+      })
+      .catch(e => {
+        console.log(e);
+        alert('Something Went Wrong');
+        this.setState({isLoading: false})
+      })
+  }
+
+  changeCategory = category => {
+    this.setState({isLoading: true});
+    news.changeCategory(category)
+      .then(data => {
+        this.setState({data, isLoading: false})
+      })
+      .catch(e => {
+        console.log(e);
+        alert('Something Went Wrong');
+        this.setState({isLoading: false})
+      })
+  }
+
   render () {
+    const {
+      articles,
+      isPrevious,
+      isNext,
+      category,
+      totalPage,
+      totalResults,
+      currentPage,
+    } = this.state.data;
     return (
       <div className="container">
         <Header 
-          category={this.state.category} 
+          category={category} 
           changeCategory={this.changeCategory}
         />
-        <DataFound />
+        <DataFound 
+          totalResults={totalResults}
+          currentPage={currentPage}
+          totalPage={totalPage}
+        />
         {this.state.isLoading ? (
           <Loading />
         ) : (
-          <Newslist news={this.state.data.articles} />
+          <div>
+            <Newslist news={articles} />
+            <Pagination 
+              next={this.next}
+              prev={this.prev}
+              isPrevious={isPrevious}
+              isNext={isNext}
+              totalPage={totalPage}
+              currentPage={currentPage}
+              handlePageChange={this.handlePageChange}
+              goToPage={this.goToPage}
+            />
+          </div>
         )}
-        <Pagination />
         {/* <Lifecycle count={1000} /> */}
       </div>
     );
