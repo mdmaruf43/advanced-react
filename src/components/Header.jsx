@@ -7,12 +7,13 @@ class Header extends Component {
     }
 
     handleChange = e => {
-        // TODO Implement 
         this.setState({ searchItem: e.target.value });
     }
 
     hadleKeyPress = e => {
-        // TODO Implement 
+        if(e.key === 'Enter') {
+            this.props.search(this.state.searchItem);
+        }
     }
     render() {
         const {category, changeCategory} = this.props;

@@ -135,6 +135,19 @@ class App extends React.Component {
       })
   }
 
+  search = searchTerm => {
+    this.setState({isLoading: true});
+    news.search(searchTerm)
+      .then(data => {
+        this.setState({data, isLoading: false})
+      })
+      .catch(e => {
+        console.log(e);
+        alert('Something Went Wrong');
+        this.setState({isLoading: false})
+      })
+  }
+
   render () {
     const {
       articles,
@@ -150,6 +163,7 @@ class App extends React.Component {
         <Header 
           category={category} 
           changeCategory={this.changeCategory}
+          search={this.search}
         />
         <DataFound 
           totalResults={totalResults}
